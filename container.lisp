@@ -243,7 +243,12 @@ the container."
            (%get-dot-net-container-int-value (pointer container)))
           ((string= type-name "System.Int64")
            (with-standard-io-syntax
-             (read-from-string (get-object-as-string container))))
+             (nth-value 0 (read-from-string (get-object-as-string container)))))
+		  ((string= type-name "System.UInt32")
+           (%get-dot-net-container-uint-value (pointer container)))
+		  ((string= type-name "System.UInt64")
+           (with-standard-io-syntax
+             (nth-value 0 (read-from-string (get-object-as-string container)))))
           ((string= type-name "System.Boolean")
            (%get-dot-net-container-boolean-value (pointer container)))
           ((string= type-name "System.Double")
