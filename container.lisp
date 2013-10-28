@@ -255,6 +255,8 @@ the container."
            (%get-dot-net-container-double-value (pointer container)))
           ((string= type-name "System.Single")
            (%get-dot-net-container-single-value (pointer container)))
+	  ((member type-name '("System.Int16" "System.UInt16" "System.Byte") :test #'string=)
+	   (unbox (cast container "System.Int32")))
           (t container))))
 
 (defmacro get-invocation-result (form)
