@@ -48,7 +48,6 @@
            :enable-rdnzl-syntax
            :enum-to-integer
            :field
-		   :get-type-name
            :import-assembly
            :import-type
            :import-types

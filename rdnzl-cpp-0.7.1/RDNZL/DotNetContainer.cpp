@@ -69,14 +69,6 @@ DotNetContainer::DotNetContainer(__int64 n) {
   init(n);
 }
 
-DotNetContainer::DotNetContainer(__uint32 n) {
-  init(n);
-}
-
-DotNetContainer::DotNetContainer(__uint64 n) {
-  init(n);
-}
-
 DotNetContainer::DotNetContainer(float f) {
   init(f);
 }
@@ -235,10 +227,6 @@ __declspec(dllexport) __wchar_t getDotNetContainerCharValue(void *ptr) {
 
 __declspec(dllexport) int getDotNetContainerIntValue(void *ptr) {
   return *safe_cast<System::Int32 ^>(static_cast<DotNetContainer *>(ptr)->getContainerObject());
-}
-
-__declspec(dllexport) int getDotNetContainerUIntValue(void *ptr) {
-	return (int)*safe_cast<System::UInt32 ^>(static_cast<DotNetContainer *>(ptr)->getContainerObject());
 }
 
 __declspec(dllexport) bool getDotNetContainerBooleanValue(void *ptr) {

@@ -250,10 +250,6 @@ called after DllEnsureInit has been called."
     ((ptr ffi-void-pointer))
   ffi-integer)
 
-(ffi-define-function "getDotNetContainerUIntValue"
-    ((ptr ffi-void-pointer))
-  ffi-integer)
-
 (ffi-define-function "getDotNetContainerCharValue"
     ((ptr ffi-void-pointer))
   ffi-wide-char)

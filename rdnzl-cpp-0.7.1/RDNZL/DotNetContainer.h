@@ -38,8 +38,6 @@ class DotNetContainer {
   DotNetContainer(bool b);
   DotNetContainer(__int32 n);
   DotNetContainer(__int64 n);
-  DotNetContainer(__uint32 n);
-  DotNetContainer(__uint64 n);
   DotNetContainer(float f);
   DotNetContainer(double d);
   DotNetContainer(__wchar_t c);
@@ -79,7 +77,6 @@ extern "C" {
   __declspec(dllexport) int getDotNetContainerObjectStringLength(void *ptr);
   __declspec(dllexport) void getDotNetContainerObjectAsString(void *ptr, __wchar_t *s);
   __declspec(dllexport) int getDotNetContainerIntValue(void *ptr);
-  __declspec(dllexport) int getDotNetContainerUIntValue(void *ptr);
   __declspec(dllexport) __wchar_t getDotNetContainerCharValue(void *ptr);
   __declspec(dllexport) bool getDotNetContainerBooleanValue(void *ptr);
   __declspec(dllexport) double getDotNetContainerDoubleValue(void *ptr);
