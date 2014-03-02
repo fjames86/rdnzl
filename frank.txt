@@ -1,0 +1,83 @@
+
+Notes on potential changes to RDNZL I want to implement:
+
+;; ------------
+
+1. Unsigned ints.
+
+The 8 basic types of ints, particularly unsigned ints, are not handled very well at the moment.
+For instance, if we have a .NET method which takes a UInt32 argument, e.g. something like
+
+class MyClass {
+	  public static UInt32 Add1(Int32 x) {
+	     return x + 1;
+	  }
+}
+
+then if we call the method
+
+[Foo. "MyClass" 23]
+
+we get #<RDNZL::CONTAINER 0x123456> instead of 24. The reason is UInt32 are not automatically unboxed, which
+shouldn't be too hard to implement.
+
+Note that we can't do automatic boxing of UInt's for the call, this always has to be done by the calling code.
+
+We could add some facilitator boxing functions
+(uint32 x) -> (cast (box x) "System.UInt32")
+etc.
+
+Unboxing could be handled by adding extra bits to the (unbox ...) function.
+
+;; ------------
+
+2. Should really update the project/solution to use VS 2013
+
+This should be easy but is worth doing. The C++/CLI language itself is more or less the same
+as it was in 2005 so the code shouldn't need any cnahges for this.
+
+;; -------------
+
+3. Defining .NET types and classes
+
+Edi already has code for defining .NET delegates (i.e. callbacks). This is a great start, and in most cases should be
+enough. Sometimes it is desirable or even necessary to actually implement a custom .NET type.
+
+For instance, if we have an API which requires subclassing a certain class at the moment we are lost. In C# we might
+have to do something like:
+
+public class MyClass : MyApiBaseClass {
+	   private string myfield;
+
+	   public MyClass(string x) {
+	       this.myfield = x;
+
+		   // other constructor code
+	   }
+	   
+	   public override void OnStart() {
+	   		  // code
+	   }
+
+	   public override void OnStop() {
+	   		  // code
+	   }
+}
+
+Then calling an API method like
+
+MyApiCall(new MyClass());
+
+
+We should be able to implement this by making use of the delegate adapter code Edi has already written.
+
+Q: what goes inside the body of the methods?
+A: The body of the .NET methods would actually be handled by .NET callbacks into Lisp.
+
+Q: how would the body code of these methods have access to the private members of the instance/class?
+A: ???
+
+Q: How do we "decorate" the class/methods with attributes?
+A: ???
+
+Q: 
