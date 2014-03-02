@@ -250,16 +250,13 @@ the container."
            (%get-dot-net-container-char-value (pointer container)))
           ((string= type-name "System.Int32")
            (%get-dot-net-container-int-value (pointer container)))
-          ((string= type-name "System.Int64")
-           (with-standard-io-syntax
-             (read-from-string (get-object-as-string container))))
-		  
-		  ;; FJ: add unboxing of other Integer types
-		  ((member type-name '("System.UInt16" "System.UInt32" "System.UInt64"
-							   "System.Int16" "System.Byte" "System.SByte") :test #'string=)
-		   (with-standard-io-syntax
-             (read-from-string (get-object-as-string container))))
-		  
+	  
+	  ;; FJ: add unboxing of other Integer types
+	  ((member type-name '("System.UInt16" "System.UInt32" "System.UInt64" "System.Int64"
+			       "System.Int16" "System.Byte" "System.SByte") :test #'string=)
+	   (with-standard-io-syntax
+             (nth-value 0 (read-from-string (get-object-as-string container)))))
+	  
           ((string= type-name "System.Boolean")
            (%get-dot-net-container-boolean-value (pointer container)))
           ((string= type-name "System.Double")

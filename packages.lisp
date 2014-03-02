@@ -70,7 +70,11 @@
            :unbox
            :unuse-all-namespaces
            :unuse-namespace
-           :use-namespace))
+           :use-namespace
+
+	   :uint16
+	   :uint32
+	   :uint64))
 
 (defpackage :rdnzl-user
   (:use :cl :rdnzl)
