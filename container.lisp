@@ -224,6 +224,15 @@ return a corresponding DotNetContainer object.  Otherwise raise an
 error."
   (wrap-with-container (box* object)))
 
+;; FJ: add boxing facilitiators
+(defun uint16 (int)
+  (cast (box int) "System.UInt16"))
+(defun uint32 (int)
+  (cast (box int) "System.UInt32"))
+(defun uint64 (int)
+  (cast (box int) "System.UInt64"))
+
+
 (defun ensure-container (object)
   "If OBJECT isn't already a CONTAINER then box it."
   (cond
@@ -244,6 +253,13 @@ the container."
           ((string= type-name "System.Int64")
            (with-standard-io-syntax
              (read-from-string (get-object-as-string container))))
+		  
+		  ;; FJ: add unboxing of other Integer types
+		  ((member type-name '("System.UInt16" "System.UInt32" "System.UInt64"
+							   "System.Int16" "System.Byte" "System.SByte") :test #'string=)
+		   (with-standard-io-syntax
+             (read-from-string (get-object-as-string container))))
+		  
           ((string= type-name "System.Boolean")
            (%get-dot-net-container-boolean-value (pointer container)))
           ((string= type-name "System.Double")
@@ -529,3 +545,5 @@ the new type, the other two arguments are CONTAINERs."
                                   type-name
                                   (list return-type
                                         arg-type-array))))
+
+
