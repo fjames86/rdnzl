@@ -28,8 +28,6 @@
 
 #pragma once
 
-using namespace System;
-
 class DotNetReference {
  public:
   DotNetReference();

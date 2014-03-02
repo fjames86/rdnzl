@@ -244,8 +244,6 @@ the container."
           ((string= type-name "System.Int64")
            (with-standard-io-syntax
              (read-from-string (get-object-as-string container))))
-	  ((member type-name '("System.Int8" "System.Int16") :test #'string=)
-	   (unbox (cast container "System.Int32")))
           ((string= type-name "System.Boolean")
            (%get-dot-net-container-boolean-value (pointer container)))
           ((string= type-name "System.Double")
